@@ -1,0 +1,46 @@
+.card {
+  display: flex;
+  /* align-items: center; */
+  flex: 1 1 auto;
+  flex-direction: column;
+  max-width: 50%;
+  /* left: 25%; */
+  left: 25%;
+  /* align-self: center; */
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+
+    .new-training {
+        font-size: 1rem;
+    }
+
+    mat-card-title {
+        font-size: 1.2rem;
+    }
+
+    mat-form-field {
+        width: 50%;
+    }
+    button {
+        width: 100%;
+    }
+
+  .card {
+    display: flex;
+    margin-top: 30px;
+    /* height: 500px; */
+
+    /* align-items: center; */
+    flex: 1 1 auto;
+    flex-direction: column;
+    max-width: 50%;
+    /* left: 25%; */
+    left: 25%;
+    /* align-self: center; */
+    justify-content: center;
+    align-items: center;
+  }
+}

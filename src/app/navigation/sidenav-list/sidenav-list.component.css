@@ -1,0 +1,31 @@
+a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  
+  a:active {
+      text-decoration: underline;
+  }
+  a:hover {
+    color: lightgray;
+  } 
+
+  
+@media (max-width: 625px) {
+    #nav {
+        display: none;
+    }
+
+    mat-sidenav {
+      padding: 20px;
+      width: 180px;
+    }
+}
+
+@media (min-width: 625px) {
+    #ham {
+        display: none;
+    }
+}
+  

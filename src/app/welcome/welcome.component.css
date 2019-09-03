@@ -1,0 +1,23 @@
+.welcome {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  .welcome {
+    display: flex;
+    flex: 1 1 1;
+    margin: 0 100px;
+    
+    /* flex-direction: column; */
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+  }
+  .welcome section {
+      margin-right: 30px;
+  }
+}
