@@ -19,20 +19,26 @@ export class CurrentTrainingComponent implements OnInit {
   // @Output()
   // exitTraining = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog, private trainingService: TrainingService) {}
+  constructor(
+    private dialog: MatDialog,
+    private trainingService: TrainingService
+  ) {}
 
   ngOnInit() {
     this.startOrResumeTimer();
   }
 
   startOrResumeTimer() {
-    let step = (this.trainingService.getRunningExercise().duration / 100) * 1000;
+    let step =
+      (this.trainingService.getRunningExercise().duration / 100) * 1000;
     // console.log('Running exercise duration' + this.trainingService.getRunningExercise().duration);
     this.timer = setInterval(() => {
-      this.progress = this.progress + 1;
       if (this.progress >= 100) {
+        // stops the timer
         clearInterval(this.timer);
+        return;
       }
+      this.progress = this.progress + 1;
     }, step);
   }
 
@@ -48,6 +54,12 @@ export class CurrentTrainingComponent implements OnInit {
       if (result == true) {
         /* If user selects yes then emit this event */
         // this.exitTraining.emit();
+        if (this.progress >= 100) {
+          console.log("After 100% execution and returning");
+          this.trainingService.completeExercise();
+          return;
+        }
+        console.log("Before cancelled exercise and returning");
         this.trainingService.cancelledExercise(this.progress);
       } else this.startOrResumeTimer();
     });

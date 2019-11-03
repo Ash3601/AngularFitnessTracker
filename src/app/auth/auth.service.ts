@@ -13,6 +13,7 @@ import { UIService } from "../shared/ui.service";
 export class AuthService {
   // private user: User;1
   private isAuthenticated = false;
+  private currentUsername: string;
   authChange: Subject<boolean> = new Subject<any>();
 
   constructor(
@@ -50,7 +51,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(res => {
         this.uiService.loadingStateChanged.next(false);
-        this.router.navigate(['training']);
+        this.router.navigate(["training"]);
         this.authChange.next(true);
 
         this.isAuthenticated = true;
@@ -60,9 +61,9 @@ export class AuthService {
         this.uiService.loadingStateChanged.next(false);
 
         // alert(err);
-        this.snackbar.open(err.message, null, {duration: 3000});
+        this.snackbar.open(err.message, null, { duration: 3000 });
       });
-      //this changed
+    //this changed
     // this.authChange.next(true);
     // this.router.navigate(["/training"]);
   }
@@ -79,12 +80,16 @@ export class AuthService {
   //   );
   //   return response;
   // }
+  getUsername(): string {
+    return this.currentUsername;
+  }
 
   login(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
     this.afauth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(res => {
+        this.currentUsername = authData.email;
         this.uiService.loadingStateChanged.next(false);
         this.authChange.next(true);
         this.isAuthenticated = true;
@@ -93,9 +98,8 @@ export class AuthService {
       .catch(err => {
         // console.log(err);
         this.router.navigate(["/login"]);
-        this.snackbar.open(err.message, null, {duration: 3000});
+        this.snackbar.open(err.message, null, { duration: 3000 });
         this.uiService.loadingStateChanged.next(false);
-
       });
     // this.user = {
     //   email: authData.email,

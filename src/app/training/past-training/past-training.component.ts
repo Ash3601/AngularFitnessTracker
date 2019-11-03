@@ -27,8 +27,8 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
     "name",
     "calories",
     "duration",
-    "state",
-    "username"
+    "state"
+    // "username"
   ];
   dataSource = new MatTableDataSource<Exercise>();
   @ViewChild(MatSort)
@@ -43,10 +43,36 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
     private authService: AuthService
   ) {}
 
+  filterExercises(exercises: Exercise[]): Exercise[] {
+    let filteredExercise: Exercise[] = [];
+    let username = this.authService.getUsername();
+    // console.log("Exercises are\n");
+    // console.log(exercises);
+    exercises.forEach(exercise => {
+      if (exercise.username === username) {
+        filteredExercise.push(exercise);
+      }
+    });
+    return filteredExercise;
+    // for (var iexercise in exercises) {
+    //   console.log(iexercise);
+    //   // console.log(iexercise.username);
+
+    //   if (iexercise["username"] == username) {
+    //     console.log(iexercise);
+    //   }
+    // }
+  }
+
   ngOnInit() {
     this.finishedExerciseSubsription = this.trainingService.finishedExerciseChanged.subscribe(
       (exercises: Exercise[]) => {
-        this.dataSource.data = exercises;
+        // this.dataSource.data = exercises;
+        // console.log("Showing exercises");
+        this.dataSource.data = this.filterExercises(exercises);
+
+        // console.log(exercises);
+        // console.log(this.authService.getUsername());
         // this.dataSource.data.push(username: this.currentUser);
         // console.log(this.dataSource.data);
       }
